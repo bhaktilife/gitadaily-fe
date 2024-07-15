@@ -1,7 +1,7 @@
 const Nav = () => {
 	return (
-		<nav className="bg-taupe text-center p-4 pt-8">
-			<span className="font-cursive text-2xl font-bold">Gita Daily</span>
+		<nav className="bg-yellow-950 text-center p-4 text-white">
+			<span className="font-cursive text-3xl font-bold">Gita Daily</span>
 		</nav>
 	);
 };
