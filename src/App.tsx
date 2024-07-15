@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import Form from "./components/Form";
 import Hero from "./components/Hero";
 import Nav from "./components/Nav";
@@ -12,6 +13,7 @@ const App = () => {
 					<Form />
 				</div>
 			</div>
+			<Toaster position="bottom-center" reverseOrder={false} />
 		</div>
 	);
 };

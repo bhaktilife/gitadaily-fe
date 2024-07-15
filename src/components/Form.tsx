@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./Form.css";
+import toast from "react-hot-toast";
 
 interface IFormInput {
 	email: string;
@@ -30,6 +31,8 @@ const Form = () => {
 		setIsLoading(true);
 		setTimeout(() => {
 			setIsLoading(false);
+			// toast.success("Successfully Subscribed!");
+			toast.error("Something went wrong! Please try again.");
 		}, 2000);
 	};
 
@@ -39,13 +42,16 @@ const Form = () => {
 			className="flex flex-col gap-4 items-center"
 		>
 			<input
+				disabled={isLoading}
+				autoComplete="off"
+				autoFocus
 				className="w-72 border-gray-200 rounded-lg py-2 px-4 text-gray-700 leading-tight focus:outline-none"
 				type="email"
-				placeholder="you@example.com"
+				placeholder="Email"
 				{...register("email")}
 			/>
 			{errors.email && (
-				<p className="text-xs text-red-900 text-left -mb-1 -mt-2">
+				<p className="text-xs text-red-900 w-full -mb-1 -mt-2">
 					{errors.email.message}
 				</p>
 			)}
