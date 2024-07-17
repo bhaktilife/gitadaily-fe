@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import "./Form.css";
+import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
+import { BE_URL } from "../utils/constant";
+import "./Form.css";
 
 interface IFormInput {
 	email: string;
@@ -30,7 +31,7 @@ const Form = () => {
 	const onSubmit: SubmitHandler<IFormInput> = async (data: IFormInput) => {
 		setIsLoading(true);
 		try {
-			await fetch(import.meta.env.VITE_BE_URL, {
+			await fetch(BE_URL, {
 				redirect: "manual",
 				method: "POST",
 				body: JSON.stringify(data),
@@ -40,7 +41,7 @@ const Form = () => {
 			});
 
 			// Not working, getting cors error, as google appsscript redirecting to different url after post request
-			//   axios.post(import.meta.env.VITE_BE_URL, data, {
+			//   axios.post(BE_URL, data, {
 			// 	headers: {
 			// 		"Content-Type": "text/plain;charset=utf-8",
 			// 	},
