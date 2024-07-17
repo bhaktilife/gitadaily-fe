@@ -21,19 +21,38 @@ const Form = () => {
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors },
 	} = useForm<IFormInput>({
 		resolver: yupResolver(schema),
 	});
 
-	const onSubmit: SubmitHandler<IFormInput> = (data: IFormInput) => {
-		console.log(data);
+	const onSubmit: SubmitHandler<IFormInput> = async (data: IFormInput) => {
 		setIsLoading(true);
-		setTimeout(() => {
+		try {
+			await fetch(import.meta.env.VITE_BE_URL, {
+				redirect: "manual",
+				method: "POST",
+				body: JSON.stringify(data),
+				headers: {
+					"Content-Type": "text/plain;charset=utf-8",
+				},
+			});
+
+			// Not working, getting cors error, as google appsscript redirecting to different url after post request
+			//   axios.post(import.meta.env.VITE_BE_URL, data, {
+			// 	headers: {
+			// 		"Content-Type": "text/plain;charset=utf-8",
+			// 	},
+			// 	maxRedirects: 0,
+			// });
+			toast.success("Subscribed successfully!");
+		} catch (err) {
+			toast.error("Something went wrong! Please try again after some time.");
+		} finally {
 			setIsLoading(false);
-			// toast.success("Successfully Subscribed!");
-			toast.error("Something went wrong! Please try again.");
-		}, 2000);
+			reset();
+		}
 	};
 
 	return (
